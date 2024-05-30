@@ -143,31 +143,68 @@ p {
   align-items: center;
   text-align: center;
   gap: 50px;
-  height: 100%;
+  height: 100vh;
+  
 }
 .formMP{
   border: solid 1px black;
   display: grid;
   grid-template-columns: 1fr;
   background-color: #d3bfff;
+  justify-items: center;
   border-radius: 20px;
   width: 100%;
-  height: 100%;
-  gap: 10%;
+  height: 80%;
+  gap: 5px;
+  padding: 5%;
 }
 .optionsForm{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
 }
+.add {
+  max-width: 50%;
+  border-radius: 5px;
+  text-align: center;
+  display: inline-block;
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  padding: 5px;
+  background-image: linear-gradient(to left, #b072d4, #653183);
+  border: 0;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  box-sizing: inherit;
+  justify-items: center;
+}
+
 span{
   font-size: 25px;
+  color: #653183;
+}
+input{
+  width: 100%;
+  height: 30px;
+  font-size: 20px;
 }
 
 
 @media (min-width: 678px) {
+  .container-formMP{
+    position: relative;
+    text-align: center;
+    height: 100vh;
+    width: 100%;
+  }
   .formMP{
     grid-template-columns: repeat(2, 1fr);
     padding: 10px;
+    width: 50%;
+    height: 60%;
   }
   .formMP > *:nth-child(odd):last-child {
     grid-column: 1 / span 2;
@@ -176,6 +213,13 @@ span{
       justify-content: center;
       align-items: center;
   }
+  .add{
+    width: 30%;
+  }
+  .add:hover {
+  transform: scale(1.05);
+  border-color: #653183;
+}
 }
 
 
