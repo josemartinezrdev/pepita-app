@@ -1,0 +1,59 @@
+{
+  "Home Page": {
+    "GestionarMateria Page": {
+      "Form": {
+        "Proveedor": "String | Usuario",
+        "CostoUnidad": "Number | Usuario",
+        "CantidadStock": "+= cantAdd",
+        "fechaAdd": "Date() | Usuario",
+        "ubiAlmacén": "String | Usuario",
+        "Notas": "String | Usuario",
+
+        "cantAdd": "Number | Usuario"
+      },
+
+      "SelectBtn": "Selecciona opt (Tela, Hilo, Cierre, Botón)",
+
+      "Tela": "Form",
+      "Hilo": "Form",
+      "Cierre": "Form",
+      "Botón": "Form",
+
+      "Save": "Datos al MockAPI según SelectBtn",
+      "Back": "Me lleva al Home Page"
+    },
+    "CalcularCostos Page": {
+      "Form": {
+        "TipoProd": "Pantalón, Camisa, Vestido, Falda | String | Usuario",
+        "CantidadProd": "Number | Usuario",
+        "TiempoProd": "Number | Usuario"
+      },
+
+      "Cálculos": "Form",
+      "Save": "Datos al MockAPI",
+      "Back": "Me lleva al Home Page"
+    },
+    "CostosIndirectos Page": {
+      "Form": {
+        "AlquilerLocal": "Decimal | Usuario",
+        "Servicios": "Decimal | Usuario",
+        "MantenimientoMaq": "Decimal | Usuario",
+        "EPP": "Decimal | Usuario",
+        "ForCapEmp": "Decimal | Usuario",
+        "Seguros": "Decimal | Usuario",
+        "GastosOficina": "Decimal | Usuario",
+        "TransLog": "Decimal | Usuario",
+        "LicPermisos": "Decimal | Usuario",
+        "Limpieza": "Decimal | Usuario",
+
+        "Total": "Decimal | Suma Atributos Anteriores | ROOT"
+      },
+      "Save": "Datos al MockAPI",
+      "Back": "Me lleva al Home Page"
+    },
+    "Informes Page": {
+      "Costos de producción Lote": "Sin definir... | ROOT",
+      "Costos de producción Producto": "Sin definir... | ROOT"
+    }
+  }
+}
