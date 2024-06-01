@@ -7,10 +7,11 @@ export const MateriaComponent = () => {
   const [second, setSecond] = useState(false);
   const [back, setBack] = useState(false);
 
-  const btnClick = (id) => {
+  const btnClick = (name, id) => {
     setFirst(false);
     setSecond(true);
-    window.globalOption = id;
+    window.globalOption = name;
+    window.id = id;
   };
 
   const btnBack = () => {
@@ -34,7 +35,7 @@ export const MateriaComponent = () => {
             <div
               className="options-mPrima options"
               tabIndex="0"
-              onClick={() => btnClick("tela")}
+              onClick={() => btnClick("tela", '1')}
             >
               <img src="public/imgs/tela.png" alt="" />
               <p>Telas</p>
@@ -42,7 +43,7 @@ export const MateriaComponent = () => {
             <div
               className="options-mObra options"
               tabIndex="0"
-              onClick={() => btnClick("hilo")}
+              onClick={() => btnClick("hilo", '2')}
             >
               <img src="public/imgs/hilo.png" alt="" />
               <p>Hilos</p>
@@ -50,7 +51,7 @@ export const MateriaComponent = () => {
             <div
               className="options-cIndirectos options"
               tabIndex="0"
-              onClick={() => btnClick("boton")}
+              onClick={() => btnClick("boton", '3')}
             >
               <img src="public/imgs/botones.png" alt="" />
               <p>Botones</p>
@@ -58,7 +59,7 @@ export const MateriaComponent = () => {
             <div
               className="options-cInformes options"
               tabIndex="0"
-              onClick={() => btnClick("cierre")}
+              onClick={() => btnClick("cierre", '4')}
             >
               <img src="public/imgs/cremallera.png" alt="" />
               <p>Cierres</p>
