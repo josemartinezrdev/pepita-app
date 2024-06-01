@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { MateriaComponent } from "./materia-component";
 import { CostosComponent } from "./costos-component";
+import CostIndirectos from "./form-cosIn-component";
+
 
 const Home = () => {
   const [control, setControl] = useState(null);
   switch (control) {
     case 1:
+      // return <App />;
       return <MateriaComponent />;
     case 2:
       return <CostosComponent />;
     case 3:
-      return <CostosComponent />;
+      return <CostIndirectos />;
     case 4:
       return <CostosComponent />;
   }
