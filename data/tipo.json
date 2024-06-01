@@ -1,0 +1,30 @@
+{
+  "Pantalon": {
+    "Tipo": "Pantalon",
+    "TelaUsada": 2,
+    "BotonUsado": 2,
+    "CierreUsado": 1,
+    "HiloUsado": 30
+  },
+  "Camisa": {
+    "Tipo": "Camisa",
+    "TelaUsada": 1,
+    "BotonUsado": 6,
+    "CierreUsado": 0,
+    "HiloUsado": 20
+  },
+  "Falda": {
+    "Tipo": "Falda",
+    "TelaUsada": 1,
+    "BotonUsado": 1,
+    "CierreUsado": 1,
+    "HiloUsado": 20
+  },
+  "Vestido": {
+    "Tipo": "Vestido",
+    "TelaUsada": 2,
+    "BotonUsado": 2,
+    "CierreUsado": 1,
+    "HiloUsado": 30
+  }
+}

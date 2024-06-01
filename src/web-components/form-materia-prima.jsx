@@ -24,63 +24,27 @@ export const FormMateria = () => {
         <div className="formMP">
           <div className="optionsForm">
             <span>Nombre Proveedor</span>
-            <input
-              type="text"
-              id="nameProveedor"
-              name="name"
-              placeholder="Nombre/s Proveedor"
-              required
-            />
+            <input type="text" id="nameProveedor" name="name" placeholder="Nombre/s Proveedor" required />
           </div>
           <div className="optionsForm">
-            <span>Ubicación en el Almacen</span>
-            <input
-              type="text"
-              id="ubicacion"
-              name="ubicacion"
-              placeholder="Ubicación"
-              required
-            />
+            <span>Ubicación</span>
+            <input type="text" id="ubicacion" name="ubicacion" placeholder="Ubicación" required />
           </div>
           <div className="optionsForm">
             <span>Cantidad</span>
-            <input
-              type="number"
-              id="Cantidad"
-              name="Cantidad"
-              placeholder="0"
-              required
-            />
+            <input type="number" id="Cantidad" name="Cantidad" placeholder="0" required />
           </div>
           <div className="optionsForm">
             <span>Descripción</span>
-            <input
-              type="text"
-              id="Descripcion"
-              name="Descripcion"
-              placeholder="Descripcion"
-              required
-            />
+            <input type="text" id="Descripcion" name="Descripcion" placeholder="Descripcion" required />
           </div>
           <div className="optionsForm">
             <span>Costo Por Unidad</span>
-            <input
-              type="number"
-              id="costo"
-              name="costo"
-              placeholder="$0.00"
-              required
-            />
+            <input type="number" id="costo" name="costo" placeholder="$0.00" required />
           </div>
           <div className="optionsForm">
             <span>Notas Adicionales</span>
-            <input
-              type="text"
-              id="notas"
-              name="notas"
-              placeholder="Notas"
-              required
-            />
+            <input type="text" id="notas" name="notas" placeholder="Notas" required />
           </div>
           <button className="add">Agregar</button>
         </div>
