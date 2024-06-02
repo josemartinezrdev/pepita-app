@@ -10,10 +10,9 @@ window.globalCostos = {
   BotonUsado: 0,
   CierreUsado: 0,
   HiloUsado: 0,
-  costMano:0,
-  costMateria:0,
-  totalLote:0
-
+  costMano: 0,
+  costMateria: 0,
+  totalLote: 0,
 };
 export const CostosComponent = () => {
   // ---------boton back------------
@@ -38,9 +37,6 @@ export const CostosComponent = () => {
   };
   if (back) {
     return <Home />;
-  }
-  if (gOperaciones) {
-    return <GestorOperaciones />;
   }
 
   return (
@@ -83,6 +79,7 @@ export const CostosComponent = () => {
             <button className="calCost" onClick={calCostos}>
               Enviar
             </button>
+            <div>{gOperaciones && <GestorOperaciones />}</div>
           </div>
         </div>
       </div>

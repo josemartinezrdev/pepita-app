@@ -1,55 +1,66 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import data from "../data/tipo.json";
+window.globalEmpleado = {
+  suelHora: 25,
+  benPrest: 5,
+};
 
-// window.globalCostos = {
-//     !prenda: "",
-//     !cantidad: 0,
-//     !tiempo: 0,
-//     !empleados: 0,
-//     !TelaUsada: 0,
-//     !BotonUsado: 0,
-//     !CierreUsado: 0,
-//     !HiloUsado: 0,
-//     costMano:0,
-//     costMateria:0,
-//     totalLote:0
+export function GestorOperaciones() {
+  const [apiData, setApiData] = useState([]);
+  window.globalCostos.empleados = Math.ceil((window.globalCostos.cantidad * 4) / window.globalCostos.tiempo);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-//   };
-
-window.dbEmpleados = [];
-export const GestorOperaciones = () => {
-  // ------------------add empleados al lote ---------------
-  window.globalCostos.empleados = (window.globalCostos.cantidad * 4) / window.globalCostos.tiempo;
-
-  const { 1: pantalon, 2: camisa, 3: falda, 4: vestido } = data;
-  Object.keys(data).forEach((prenda) => {
-    if (window.globalCostos.prenda === prenda) {
-      console.log(data[prenda]["BotonUsado"]);
-      window.globalCostos.TelaUsada = window.globalCostos.cantidad * data[prenda]["TelaUsada"];
-      window.globalCostos.BotonUsado = window.globalCostos.cantidad * data[prenda]["BotonUsado"];
-      window.globalCostos.CierreUsado = window.globalCostos.cantidad * data[prenda]["CierreUsado"];
-      window.globalCostos.HiloUsado = window.globalCostos.cantidad * data[prenda]["HiloUsado"];
-    }
-  });
-
-  // ----------------costo de la mano de obra ---------------
-  const url = "https://665637279f970b3b36c4a8f5.mockapi.io/Empleados"; // Reemplaza con tu propia URL
   const fetchData = async () => {
     try {
-      const response = await fetch(url);
-      const result = await response.json();
-      console.log(result);
-
-      window.dbEmpleados = result;
-      console.log("hola", window.dbEmpleados);
+      const response = await fetch("https://665637279f970b3b36c4a8f5.mockapi.io/MateriaPrima");
+      const dataFromApi = await response.json();
+      setApiData(dataFromApi);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error al obtener datos:", error);
     }
   };
 
-  fetchData();
+  useEffect(() => {
+    // Aquí puedes integrar los datos de la API en tu lógica existente
+    if (apiData.length > 0) {
+      Object.keys(data).forEach((prenda) => {
+        if (window.globalCostos.prenda === prenda) {
+          let { prenda, cantidad, tiempo, empleados, TelaUsada, BotonUsado, CierreUsado, HiloUsado, costMano, costMateria, totalLote } = window.globalCostos;
+          const { suelHora, benPrest } = window.globalEmpleado;
+          window.globalCostos.TelaUsada = cantidad * data[prenda]["TelaUsada"];
+          window.globalCostos.BotonUsado = cantidad * data[prenda]["BotonUsado"];
+          window.globalCostos.CierreUsado = cantidad * data[prenda]["CierreUsado"];
+          window.globalCostos.HiloUsado = cantidad * data[prenda]["HiloUsado"];
+          window.globalCostos.costMano = empleados * (suelHora * tiempo + benPrest);
+          // ------------------utilizar los datos del mockapi para usar los precios---------
+          const [Tela, Hilo, Cierre, Boton] = apiData;
+          window.globalCostos.costMateria = TelaUsada * Tela.costoUnidad + HiloUsado * Hilo.costoUnidad + CierreUsado * Cierre.costoUnidad + BotonUsado * Boton.costoUnidad;
+        }
+      });
+    }
+  }, [apiData]);
 
-  console.log(window.globalCostos);
-
-  return <div>GestorOperaciones</div>;
-};
+  const { prenda, cantidad, tiempo, empleados, TelaUsada, BotonUsado, CierreUsado, HiloUsado, costMano, costMateria, totalLote } = window.globalCostos;
+  return (
+    <>
+      <div>
+        <h2>Costos</h2>
+        <ul>
+          <li>Prenda: {prenda}</li>
+          <li>Cantidad: {cantidad}</li>
+          <li>Tiempo: {tiempo}</li>
+          <li>Empleados: {empleados}</li>
+          <li>Tela Usada: {TelaUsada}</li>
+          <li>Botón Usado: {BotonUsado}</li>
+          <li>Cierre Usado: {CierreUsado}</li>
+          <li>Hilo Usado: {HiloUsado}</li>
+          <li>Costo de Mano de Obra: {costMano}</li>
+          <li>Costo de Materiales: {costMateria}</li>
+          <li>Total del Lote: {totalLote}</li>
+        </ul>
+      </div>
+    </>
+  );
+}
