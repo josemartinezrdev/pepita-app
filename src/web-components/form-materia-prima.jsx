@@ -5,12 +5,12 @@ import { getData, putData } from "../api-services/api-service.jsx";
 export const FormMateria = () => {
   const [back, setBack] = useState(false);
   const [formData, setFormData] = useState({
-    nameProveedor: "",
-    ubicacion: "",
-    Cantidad: Number,
-    Descripcion: "",
-    costo: Number,
-    notas: "",
+    nameProveedor: '',
+    ubicacion: '',
+    Cantidad: '',
+    Descripcion: '',
+    costo: '',
+    notas: ''
   });
 
   const btnBack = () => {
@@ -51,8 +51,8 @@ export const FormMateria = () => {
       await putData(baseUrl, endpoint, updatedData, id);
       alert("Datos actualizados correctamente");
       setBack(true);
-    } catch {
-      console.error("Error al actualizar los datos:", error);
+    } catch (error){
+      console.error('Error al actualizar los datos:', error);
     }
   };
 
