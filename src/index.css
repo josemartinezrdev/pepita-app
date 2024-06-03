@@ -255,3 +255,55 @@ select{
     font-size: 25px;
   }
 }
+
+/*------------------INFORMES LOTE---------------------*/
+.container-infoLote{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 150px;
+  width: 100vw;
+  height: 100vh;
+  padding: 10px;
+}
+
+.infoLote{
+  align-self: center;
+  justify-content: center;
+  background-color: #d3bfff;
+  width: 80vw;
+  font-size: 20px;
+  border: solid 1px black;
+  border-radius: 20px;
+  width: 80%;
+  gap: 5px;
+  padding: 5%;
+}
+
+.infoLote ul{
+  list-style: none;
+}
+
+.infoLote h2{
+  text-align: center;
+}
+
+.infoLote li{
+  margin: 10px 0;
+}
+
+@media (min-width: 678px) {
+  .container-infoLote{
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container-infoLote{
+    justify-content: center;
+  }
+  .infoLote{
+    width: 60vw;
+    font-size: 35px;
+  }
+}

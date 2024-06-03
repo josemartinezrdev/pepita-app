@@ -14,6 +14,22 @@ export async function getData(baseUrl, endpoint, id) {
     }
 }
 
+// Función para obtener datos de la API sin ID
+export async function getDataAll(baseUrl, endpoint) {
+    // Recibe dos parámetros: la URL base y un endpoint para saber a qué datos acceder
+    const url = `${baseUrl}/${endpoint}`; // Constante donde se junta la URL base y el endpoint
+    try {
+        const response = await fetch(url); // Se guarda la respuesta del GET a la API en una constante
+        if (!response.ok) { // Verifica si la respuesta no es exitosa
+            throw new Error(`Error en la solicitud: ${response.statusText}`); // Lanza un error con el mensaje de estado
+        }
+        return await response.json(); // Retorna la respuesta convertida a formato JSON
+    } catch (error) {
+        console.error('Error en GET:', error); // Imprime el error en la consola
+        throw error; // Vuelve a lanzar el error para ser manejado por quien llama a la función
+    }
+}
+
 // Función para enviar datos a la API usando el método POST
 export async function postData(baseUrl, endpoint, data) {
     const url = `${baseUrl}/${endpoint}`; // Constante donde se junta la URL base y el endpoint

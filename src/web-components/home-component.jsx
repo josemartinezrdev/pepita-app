@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MateriaComponent } from "./materia-component";
 import { CostosComponent } from "./costos-component";
+import { InformeComponent } from './informe-component';
 import CostIndirectos from "./form-cosIn-component";
 
 window.globalCostos = {
@@ -28,7 +29,7 @@ export const Home = () => {
     case 3:
       return <CostIndirectos />;
     case 4:
-      return <CostosComponent />;
+      return <InformeComponent />;
   }
 
   return (
