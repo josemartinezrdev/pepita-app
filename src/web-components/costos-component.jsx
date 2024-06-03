@@ -1,20 +1,14 @@
 import React, { useState } from "react";
 import { GestorOperaciones } from "../gestor-operaciones";
-import Home from "./home-component";
-window.globalCostos = {
-  prenda: "",
-  cantidad: 0,
-  tiempo: 0,
-  empleados: 0,
-  TelaUsada: 0,
-  BotonUsado: 0,
-  CierreUsado: 0,
-  HiloUsado: 0,
-  costMano: 0,
-  costMateria: 0,
-  totalLote: 0,
-};
+import { Home } from "./home-component";
+
 export const CostosComponent = () => {
+  const [showHome, setShowHome] = useState(false);
+
+  const handleShowHome = () => {
+    setShowHome(true);
+  };
+
   // ---------boton back------------
   const [back, setBack] = useState(false);
 
@@ -35,7 +29,9 @@ export const CostosComponent = () => {
     updateGlobalCostos("tiempo", parseInt(tiempoInput, 10));
     setgOperaciones(true);
   };
-  if (back) {
+
+  if (back || showHome) {
+    window.toHome = false;
     return <Home />;
   }
 
@@ -48,19 +44,39 @@ export const CostosComponent = () => {
         </button>
         <h1>Calcular Costos</h1>
         <div className="option-home">
-          <div className="options-mPrima options" tabIndex="0" onClick={() => (window.globalCostos.prenda = "Pantalon")}>
+          <div
+            className="options-mPrima options"
+            tabIndex="0"
+            onClick={() => (window.globalCostos.prenda = "Pantalon")}
+          >
             <img src="public/imgs/pantalones.png" alt="" />
             <p>Pantalon</p>
           </div>
-          <div className="options-mObra options" tabIndex="0" onClick={() => (window.globalCostos.prenda = "Camisa")}>
-            <img src="public/imgs/camisa.png" alt="" />
+          <div
+            className="options-mObra options"
+            tabIndex="0"
+            onClick={() => (window.globalCostos.prenda = "Camisa")}
+          >
+            <img
+              src="public/imgs/camisa.png
+"
+              alt=""
+            />
             <p>Camisa</p>
           </div>
-          <div className="options-cIndirectos options" tabIndex="0" onClick={() => (window.globalCostos.prenda = "Falda")}>
+          <div
+            className="options-cIndirectos options"
+            tabIndex="0"
+            onClick={() => (window.globalCostos.prenda = "Falda")}
+          >
             <img src="public/imgs/falda.png" alt="" />
             <p>Falda</p>
           </div>
-          <div className="options-cInformes options" tabIndex="0" onClick={() => (window.globalCostos.prenda = "Vestido")}>
+          <div
+            className="options-cInformes options"
+            tabIndex="0"
+            onClick={() => (window.globalCostos.prenda = "Vestido")}
+          >
             <img src="public/imgs/vestido.png" alt="" />
             <p>Vestido</p>
           </div>
@@ -70,16 +86,34 @@ export const CostosComponent = () => {
           <div className="formC">
             <div className="optionsFormC">
               <span className="spanCost">Cantidad</span>
-              <input className="inputCost" type="number" id="cantidad" name="cantidad" placeholder="0" required />
+              <input
+                className="inputCost"
+                type="number"
+                id="cantidad"
+                name="cantidad"
+                placeholder="0"
+                required
+              />
             </div>
             <div className="optionsFormC">
               <span className="spanCost">Tiempo</span>
-              <input className="inputCost" type="number" id="tiempo" name="tiempo" placeholder="horas" required />
+              <input
+                className="inputCost"
+                type="number"
+                id="tiempo"
+                name="tiempo"
+                placeholder="horas"
+                required
+              />
             </div>
             <button className="calCost" onClick={calCostos}>
               Enviar
             </button>
-            <div>{gOperaciones && <GestorOperaciones />}</div>
+            <div>
+              {gOperaciones && (
+                <GestorOperaciones onShowHome={handleShowHome} />
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -1,23 +1,21 @@
 import React, { useState } from "react";
-import Home from "./home-component";
+import { Home } from "./home-component";
 import { putData } from "../api-services/api-service.jsx";
-
-window.globalTotal = 0;
 
 const CostIndirectos = () => {
   // ---------boton back------------
   const [back, setBack] = useState(false);
   const [formData, setFormData] = useState({
-    alquiler: '',
-    servicios: '',
-    mant: '',
-    epp: '',
-    ForCapEmp: '',
-    Seguros: '',
-    GastosOficina: '',
-    TransLog: '',
-    LicPermisos: '',
-    Limpieza: ''
+    alquiler: "",
+    servicios: "",
+    mant: "",
+    epp: "",
+    ForCapEmp: "",
+    Seguros: "",
+    GastosOficina: "",
+    TransLog: "",
+    LicPermisos: "",
+    Limpieza: "",
   });
 
   const btnBack = () => {
@@ -30,14 +28,14 @@ const CostIndirectos = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
-  }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const id = '1';
-      const baseUrl = 'https://665637279f970b3b36c4a8f5.mockapi.io';
-      const endpoint = 'CostosIndirectos';
+      const id = "1";
+      const baseUrl = "https://665637279f970b3b36c4a8f5.mockapi.io";
+      const endpoint = "CostosIndirectos";
 
       const updatedData = {
         AlquilerLocal: Number(formData.alquiler),
@@ -50,18 +48,26 @@ const CostIndirectos = () => {
         TransLog: Number(formData.TransLog),
         LicPermisos: Number(formData.LicPermisos),
         Limpieza: Number(formData.Limpieza),
-        Total: Number(formData.alquiler) + Number(formData.servicios) + Number(formData.mant) + Number(formData.epp) + Number(formData.ForCapEmp) + Number(formData.Seguros) + Number(formData.GastosOficina) + Number(formData.TransLog) + Number(formData.LicPermisos) + Number(formData.Limpieza)
+        Total:
+          Number(formData.alquiler) +
+          Number(formData.servicios) +
+          Number(formData.mant) +
+          Number(formData.epp) +
+          Number(formData.ForCapEmp) +
+          Number(formData.Seguros) +
+          Number(formData.GastosOficina) +
+          Number(formData.TransLog) +
+          Number(formData.LicPermisos) +
+          Number(formData.Limpieza),
       };
 
-      window.globalTotal = updatedData.Total;
-
       await putData(baseUrl, endpoint, updatedData, id);
-      alert('Datos actualizados correctamente');
+      alert("Datos actualizados correctamente");
       setBack(true);
     } catch (error) {
-      console.error('Error al actualizar los datos:', error);
+      console.error("Error al actualizar los datos:", error);
     }
-  }
+  };
 
   return (
     <>
@@ -75,12 +81,14 @@ const CostIndirectos = () => {
           <div className="optionsForm">
             <span>Alquiler Local</span>
             <input
-              type="number" id="alquiler"
+              type="number"
+              id="alquiler"
               name="alquiler"
               placeholder="$0.00"
               value={formData.alquiler}
               onChange={handleChange}
-              required />
+              required
+            />
           </div>
           <div className="optionsForm">
             <span>Servicios</span>
@@ -91,7 +99,8 @@ const CostIndirectos = () => {
               placeholder="$0.00"
               value={formData.servicios}
               onChange={handleChange}
-              required />
+              required
+            />
           </div>
           <div className="optionsForm">
             <span>Mantenimiento</span>
@@ -102,7 +111,8 @@ const CostIndirectos = () => {
               placeholder="$0.00"
               value={formData.mant}
               onChange={handleChange}
-              required />
+              required
+            />
           </div>
           <div className="optionsForm">
             <span>EPP</span>
@@ -113,7 +123,8 @@ const CostIndirectos = () => {
               placeholder="$0.00"
               value={formData.epp}
               onChange={handleChange}
-              required />
+              required
+            />
           </div>
           <div className="optionsForm">
             <span>ForCapEmp</span>
@@ -124,7 +135,8 @@ const CostIndirectos = () => {
               placeholder="$0.00"
               value={formData.ForCapEmp}
               onChange={handleChange}
-              required />
+              required
+            />
           </div>
           <div className="optionsForm">
             <span>Seguros</span>
@@ -135,7 +147,8 @@ const CostIndirectos = () => {
               placeholder="$0.00"
               value={formData.Seguros}
               onChange={handleChange}
-              required />
+              required
+            />
           </div>
           <div className="optionsForm">
             <span>GastosOficina</span>
@@ -146,7 +159,8 @@ const CostIndirectos = () => {
               placeholder="$0.00"
               value={formData.GastosOficina}
               onChange={handleChange}
-              required />
+              required
+            />
           </div>
           <div className="optionsForm">
             <span>TransLog</span>
@@ -157,7 +171,8 @@ const CostIndirectos = () => {
               placeholder="$0.00"
               value={formData.TransLog}
               onChange={handleChange}
-              required />
+              required
+            />
           </div>
           <div className="optionsForm">
             <span>LicPermisos</span>
@@ -168,7 +183,8 @@ const CostIndirectos = () => {
               placeholder="$0.00"
               value={formData.LicPermisos}
               onChange={handleChange}
-              required />
+              required
+            />
           </div>
           <div className="optionsForm">
             <span>Limpieza</span>
@@ -179,9 +195,12 @@ const CostIndirectos = () => {
               placeholder="$0.00"
               value={formData.Limpieza}
               onChange={handleChange}
-              required />
+              required
+            />
           </div>
-          <button className="add" type="submit">Guardar</button>
+          <button className="add" type="submit">
+            Guardar
+          </button>
         </form>
       </div>
     </>

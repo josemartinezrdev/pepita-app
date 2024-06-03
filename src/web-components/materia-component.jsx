@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FormMateria } from "./form-materia-prima";
-import Home from "./home-component";
+import { Home } from "./home-component";
 
 export const MateriaComponent = () => {
   const [first, setFirst] = useState(true);
@@ -35,7 +35,7 @@ export const MateriaComponent = () => {
             <div
               className="options-mPrima options"
               tabIndex="0"
-              onClick={() => btnClick("tela", '1')}
+              onClick={() => btnClick("tela", "1")}
             >
               <img src="public/imgs/tela.png" alt="" />
               <p>Telas</p>
@@ -43,7 +43,7 @@ export const MateriaComponent = () => {
             <div
               className="options-mObra options"
               tabIndex="0"
-              onClick={() => btnClick("hilo", '2')}
+              onClick={() => btnClick("hilo", "2")}
             >
               <img src="public/imgs/hilo.png" alt="" />
               <p>Hilos</p>
@@ -51,7 +51,7 @@ export const MateriaComponent = () => {
             <div
               className="options-cIndirectos options"
               tabIndex="0"
-              onClick={() => btnClick("boton", '3')}
+              onClick={() => btnClick("boton", "3")}
             >
               <img src="public/imgs/botones.png" alt="" />
               <p>Botones</p>
@@ -59,7 +59,7 @@ export const MateriaComponent = () => {
             <div
               className="options-cInformes options"
               tabIndex="0"
-              onClick={() => btnClick("cierre", '4')}
+              onClick={() => btnClick("cierre", "4")}
             >
               <img src="public/imgs/cremallera.png" alt="" />
               <p>Cierres</p>
