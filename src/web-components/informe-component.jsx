@@ -74,7 +74,6 @@ export const InformeComponent = () => {
   if (back) {
     return <Home />;
   }
-  console.log(producto);
   // Renderiza el html con sus respectivos eventos y variables configuradas anteriormente
   return (
     <>
@@ -86,7 +85,7 @@ export const InformeComponent = () => {
         <div className="cont-producto">
           {producto.map((prod) => (
             <div key={prod.id} className="producto-item">
-              <h1>{prod.Tipo}</h1>
+              <h2>{prod.Tipo}</h2>
               <h3>Tela Usada: {prod.TelaUsada}</h3>
               <h3>Botón Usado: {prod.BotonUsado}</h3>
               <h3>Cierre Usado: {prod.CierreUsado}</h3>

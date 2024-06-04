@@ -6,7 +6,7 @@
 }
 
 body {
-  background: #653183;
+  background: #f4e0ff;
   background-repeat: no-repeat;
   overflow-x: hidden;
   display: flex;
@@ -86,6 +86,11 @@ h3 {
 }
 
 /* -------------------- FORMULARIOS------------------------------------ */
+.cont-formMockMateriaP{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .container-formMP {
   display: flex;
   margin: 15px;
@@ -98,7 +103,7 @@ h3 {
   padding-top: 15%;
 }
 .formMP,
-.formC {
+.formC{
   border: solid 1px black;
   display: grid;
   grid-template-columns: 1fr;
@@ -109,6 +114,15 @@ h3 {
   height: 100%;
   gap: 5px;
   padding: 5%;
+}
+.info-materiaP {
+  border: solid 1px black;
+  display: grid;
+  grid-template-columns: 1fr;
+  background-color: #d3bfff;
+  justify-items: center;
+  border-radius: 20px;
+  padding: 2%;
 }
 .optionsForm {
   display: flex;
@@ -151,7 +165,7 @@ select {
 }
 
 /* --------------------------------------MEDIA ----------------------------- */
-@media (min-width: 678px) {
+@media (min-width: 690px) {
   body {
     height: 100vh;
   }
@@ -204,6 +218,17 @@ select {
   }
 
   /* -----------------------------MEDIA FORM--------------------- */
+  
+  
+  .info-materiaP{
+    padding: 7%;
+  }
+  .cont-formMockMateriaP{
+    flex-direction: row;
+    max-height: 80vh;
+    gap: 7%;
+    height: 70vh;
+  }
   .container-formMP {
     position: relative;
     width: 100vw;
@@ -234,7 +259,7 @@ select {
 
 @media (min-width: 1200px) {
   body {
-    height: 100%;
+    height: 100vh;
   }
   .container-home {
     text-align: center;
@@ -284,8 +309,11 @@ select {
   padding: 5%;
 }
 
-.infoLote ul {
+ul {
   list-style: none;
+  text-align: left;
+  font-size: 24px;
+
 }
 
 .infoLote h2 {
@@ -320,10 +348,10 @@ select {
 
 .cont-producto {
   display: flex;
-  justify-content: space-between; /* Asegura que los elementos tengan espacio entre ellos */
-  flex-wrap: wrap; /* Permite que los elementos se envuelvan en la siguiente fila si no caben en una sola fila */
-  gap: 20px; /* Espacio entre los elementos */
-  margin: 20px 0; /* Espaciado superior e inferior */
+  justify-content: center; 
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px 0; 
 }
 
 .producto-item {
@@ -331,13 +359,13 @@ select {
   flex-direction: column;
   align-items: center;
   background-color: #d3bfff;
-  border: 1px solid #b072d4; /* Borde alrededor de cada item */
-  padding: 10px; /* Espaciado interno */
-  border-radius: 5px; /* Bordes redondeados */
-  width: 200px; /* Ancho fijo para cada item */
+  border: 1px solid #b072d4; 
+  padding: 10px; 
+  border-radius: 20px; 
+  width: 200px; 
 }
 
 .infoLote {
-  margin-top: 20px; /* Espaciado superior */
+  margin-top: 20px;
   text-align: center;
 }
