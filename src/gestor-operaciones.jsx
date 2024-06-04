@@ -16,6 +16,9 @@ export function GestorOperaciones({ onShowHome }) {
 
   // Variable global para verificar stock
   window.veriStock = true;
+  window.veriStockBoton = true;
+  window.veriStockCierre = true;
+  window.veriStockHilo = true;
 
   // Funciones para obtener datos de la API
   useEffect(() => {
@@ -29,7 +32,6 @@ export function GestorOperaciones({ onShowHome }) {
         "https://665637279f970b3b36c4a8f5.mockapi.io/MateriaPrima"
       );
       const dataFromApi = await response.json();
-      console.log("Materia Prima Data:", dataFromApi);
       setApiData(dataFromApi);
     } catch (error) {
       console.error("Error al obtener datos de Materia Prima:", error);
@@ -39,6 +41,7 @@ export function GestorOperaciones({ onShowHome }) {
   const fetchIndirectCostsData = async () => {
     try {
       const response = await fetch(
+        // Link de mockapi CostosIndirectos
         "https://665637279f970b3b36c4a8f5.mockapi.io/CostosIndirectos"
       );
       const dataFromApi = await response.json();
@@ -51,11 +54,8 @@ export function GestorOperaciones({ onShowHome }) {
 
   // Función para calcular costos
   const calculateCosts = () => {
-    console.log("Calculando costos...");
-
     Object.keys(data).forEach((prendaKey) => {
       if (window.globalCostos.prenda === prendaKey) {
-        console.log("Prenda encontrada:", prendaKey);
         let { cantidad, tiempo } = window.globalCostos;
         const { suelHora, benPrest } = window.globalEmpleado;
 
@@ -80,15 +80,24 @@ export function GestorOperaciones({ onShowHome }) {
         const [Tela, Hilo, Cierre, Boton] = apiData;
         if (Tela && Hilo && Cierre && Boton) {
           if (Tela.cantidadStock < window.globalCostos.TelaUsada) {
-            console.log("Pailas no le alcanza la tela");
             window.veriStock = false;
+          } else if (Boton.cantidadStock < window.globalCostos.BotonUsado) {
+            window.veriStockBoton = false;
+          } else if (Cierre.cantidadStock < window.globalCostos.CierreUsado) {
+            window.veriStockCierre = false;
+          } else if (Hilo.cantidadStock < window.globalCostos.HiloUsado) {
+            window.veriStockHilo = false;
           }
+          apiData[0]["cantidadStock"] -= window.globalCostos.TelaUsada;
+          apiData[1]["cantidadStock"] -= window.globalCostos.HiloUsado;
+          apiData[2]["cantidadStock"] -= window.globalCostos.CierreUsado;
+          apiData[3]["cantidadStock"] -= window.globalCostos.BotonUsado;
+
           window.globalCostos.costMateria =
             window.globalCostos.TelaUsada * Tela.costoUnidad +
             window.globalCostos.HiloUsado * Hilo.costoUnidad +
             window.globalCostos.CierreUsado * Cierre.costoUnidad +
             window.globalCostos.BotonUsado * Boton.costoUnidad;
-          console.log("Costo de Materiales:", window.globalCostos.costMateria);
         } else {
           console.error(
             "Datos de Materia Prima no contienen las propiedades esperadas"
@@ -108,7 +117,7 @@ export function GestorOperaciones({ onShowHome }) {
   // Función para enviar los costos globales a la API
   const postGlobalCostos = async () => {
     try {
-      console.log("Datos a subir:", window.globalCostos);
+      console.log(window.globalStockMateria);
       const response = await fetch(
         "https://665637279f970b3b36c4a8f5.mockapi.io/Lotes",
         {
@@ -128,6 +137,31 @@ export function GestorOperaciones({ onShowHome }) {
     }
   };
 
+  const postGlobalStock = async () => {
+    try {
+      for (const atributo of apiData) {
+        const response = await fetch(
+          `https://665637279f970b3b36c4a8f5.mockapi.io/MateriaPrima/${atributo.id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(atributo),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Error al actualizar datos en MockAPI");
+        }
+      }
+
+      console.log("Datos actualizados exitosamente apidata 🙂");
+    } catch (error) {
+      console.error("Error al actualizar datos en MockAPI:", error);
+    }
+  };
+
   // Efecto para calcular costos y enviarlos a la API
   useEffect(() => {
     if (apiData.length > 0 && indirectCostsData.length > 0 && !hasPosted) {
@@ -135,9 +169,20 @@ export function GestorOperaciones({ onShowHome }) {
       if (!window.veriStock) {
         alert("No hay suficiente stock de tela.");
         window.toHome = true;
+      } else if (!window.veriStockBoton) {
+        alert("No hay suficiente stock de Botones.");
+        window.toHome = true;
+      } else if (!window.veriStockCierre) {
+        alert("No hay suficiente stock de Cierres.");
+        window.toHome = true;
+      } else if (!window.veriStockHilo) {
+        alert("No hay suficiente stock de Hilo.");
+        window.toHome = true;
       } else {
         postGlobalCostos();
+        postGlobalStock();
         setHasPosted(true); // Marcar como posteado para evitar múltiples publicaciones
+        alert("Lote creado con éxito");
         window.toHome = true;
       }
     }
@@ -146,40 +191,4 @@ export function GestorOperaciones({ onShowHome }) {
       onShowHome();
     }
   }, [apiData, indirectCostsData]);
-
-  // Renderizado de los resultados de los cálculos
-  const {
-    prenda,
-    cantidad,
-    tiempo,
-    empleados,
-    TelaUsada,
-    BotonUsado,
-    CierreUsado,
-    HiloUsado,
-    costMano,
-    costMateria,
-    totalLote,
-  } = window.globalCostos;
-
-  return (
-    <>
-      <div>
-        <h2>Costos</h2>
-        <ul>
-          <li>Prenda: {prenda}</li>
-          <li>Cantidad: {cantidad}</li>
-          <li>Tiempo: {tiempo}</li>
-          <li>Empleados: {empleados}</li>
-          <li>Tela Usada: {TelaUsada}</li>
-          <li>Botón Usado: {BotonUsado}</li>
-          <li>Cierre Usado: {CierreUsado}</li>
-          <li>Hilo Usado: {HiloUsado}</li>
-          <li>Costo de Mano de Obra: {costMano}</li>
-          <li>Costo de Materiales: {costMateria}</li>
-          <li>Total del Lote: {totalLote}</li>
-        </ul>
-      </div>
-    </>
-  );
 }

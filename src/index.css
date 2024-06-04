@@ -71,7 +71,7 @@ body {
 }
 
 img {
-  width: 80%;
+  width: 60%;
   max-width: 100%;
 }
 
@@ -80,7 +80,8 @@ h2 {
   color: #b072d4;
 }
 
-p {
+p,
+h3 {
   color: #653183;
 }
 
@@ -143,7 +144,7 @@ input {
   height: 30px;
   font-size: 20px;
 }
-select{
+select {
   width: 100%;
   height: 30px;
   font-size: 20px;
@@ -162,6 +163,8 @@ select{
   .container-home {
     text-align: center;
     position: relative;
+    height: 100%;
+    padding: 5%;
   }
 
   .container-title {
@@ -171,8 +174,8 @@ select{
   .lila {
     display: block;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 100px;
+    right: 30px;
     width: 100px;
     z-index: 10;
     animation: spin 3s linear infinite;
@@ -204,15 +207,14 @@ select{
   .container-formMP {
     position: relative;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     padding-top: 20px;
   }
   .formMP {
     grid-template-columns: repeat(2, 1fr);
     padding: 2%;
     width: 50%;
-    height: 80%;
-    gap: 5%;
+    height: 100%;
   }
   .formMP > *:nth-child(odd):last-child {
     grid-column: 1 / span 2;
@@ -231,9 +233,12 @@ select{
 }
 
 @media (min-width: 1200px) {
+  body {
+    height: 100%;
+  }
   .container-home {
     text-align: center;
-    height: 100vh;
+    height: 100%;
   }
   .option-home {
     display: flex;
@@ -257,17 +262,16 @@ select{
 }
 
 /*------------------INFORMES LOTE---------------------*/
-.container-infoLote{
+.container-infoLote {
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 150px;
   width: 100vw;
   height: 100vh;
   padding: 10px;
 }
 
-.infoLote{
+.infoLote {
   align-self: center;
   justify-content: center;
   background-color: #d3bfff;
@@ -280,30 +284,60 @@ select{
   padding: 5%;
 }
 
-.infoLote ul{
+.infoLote ul {
   list-style: none;
 }
 
-.infoLote h2{
+.infoLote h2 {
   text-align: center;
 }
 
-.infoLote li{
+.infoLote li {
   margin: 10px 0;
 }
 
 @media (min-width: 678px) {
-  .container-infoLote{
+  .container-infoLote {
     justify-content: center;
   }
 }
 
 @media (min-width: 1200px) {
-  .container-infoLote{
+  .container-infoLote {
     justify-content: center;
   }
-  .infoLote{
+  .infoLote {
     width: 60vw;
     font-size: 35px;
   }
+}
+.container-infoLote {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.cont-producto {
+  display: flex;
+  justify-content: space-between; /* Asegura que los elementos tengan espacio entre ellos */
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en la siguiente fila si no caben en una sola fila */
+  gap: 20px; /* Espacio entre los elementos */
+  margin: 20px 0; /* Espaciado superior e inferior */
+}
+
+.producto-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #d3bfff;
+  border: 1px solid #b072d4; /* Borde alrededor de cada item */
+  padding: 10px; /* Espaciado interno */
+  border-radius: 5px; /* Bordes redondeados */
+  width: 200px; /* Ancho fijo para cada item */
+}
+
+.infoLote {
+  margin-top: 20px; /* Espaciado superior */
+  text-align: center;
 }
