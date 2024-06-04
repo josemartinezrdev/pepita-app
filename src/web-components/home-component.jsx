@@ -1,9 +1,11 @@
+// Importamos las dependencias necesarias de React y otros componentes
 import React, { useState } from "react";
 import { MateriaComponent } from "./materia-component";
 import { CostosComponent } from "./costos-component";
 import { InformeComponent } from './informe-component';
 import CostIndirectos from "./form-cosIn-component";
 
+// Definimos un objeto global para almacenar los costos
 window.globalCostos = {
   prenda: "",
   cantidad: 0,
@@ -18,11 +20,14 @@ window.globalCostos = {
   totalLote: 0,
 };
 
+// Definimos el componente principal Home
 export const Home = () => {
+  // Usamos el hook useState para gestionar el estado de control
   const [control, setControl] = useState(null);
+
+  // Usamos un switch para renderizar diferentes componentes según el valor de control
   switch (control) {
     case 1:
-      // return <App />;
       return <MateriaComponent />;
     case 2:
       return <CostosComponent />;
@@ -30,8 +35,11 @@ export const Home = () => {
       return <CostIndirectos />;
     case 4:
       return <InformeComponent />;
+    default:
+      break;
   }
 
+  // Renderizamos la interfaz principal cuando control es null o no coincide con ningún caso del switch
   return (
     <>
       <div className="container-home">
@@ -39,6 +47,7 @@ export const Home = () => {
         <h1>Bienvenido a PeppitaApp</h1>
         <h2>¿Qué Deseas Hacer Hoy?</h2>
         <div className="option-home">
+          {/* Opción para gestionar materia prima */}
           <div
             className="options-mPrima options"
             tabIndex="0"
@@ -47,6 +56,7 @@ export const Home = () => {
             <img src="public/imgs/materiaPrima.png" alt="" />
             <p>Gestionar Materia Prima</p>
           </div>
+          {/* Opción para gestionar mano de obra */}
           <div
             className="options-mObra options"
             tabIndex="0"
@@ -55,6 +65,7 @@ export const Home = () => {
             <img src="public/imgs/manoObra.png" alt="" />
             <p>Mano de Obra</p>
           </div>
+          {/* Opción para gestionar costos indirectos */}
           <div
             className="options-cIndirectos options"
             tabIndex="0"
@@ -63,6 +74,7 @@ export const Home = () => {
             <img src="public/imgs/costIndirectos.png" alt="" />
             <p>Costos Indirectos</p>
           </div>
+          {/* Opción para ver informes */}
           <div
             className="options-cInformes options"
             tabIndex="0"

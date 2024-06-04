@@ -3,25 +3,31 @@ import { GestorOperaciones } from "../gestor-operaciones";
 import { Home } from "./home-component";
 
 export const CostosComponent = () => {
+  // Estado para controlar la visualización de la página de inicio
   const [showHome, setShowHome] = useState(false);
 
+  // Función para mostrar la página de inicio
   const handleShowHome = () => {
     setShowHome(true);
   };
 
-  // ---------boton back------------
+  // Estado para controlar el regreso a la página anterior
   const [back, setBack] = useState(false);
 
+  // Función para regresar a la página anterior
   const btnBack = () => {
     setBack(true);
   };
 
-  //  -----------------------------
+  // Estado para controlar si se han realizado las operaciones de cálculo
   const [gOperaciones, setgOperaciones] = useState(false);
+
+  // Función para actualizar los datos globales de costos
   const updateGlobalCostos = (key, value) => {
     window.globalCostos[key] = value;
   };
 
+  // Función para calcular los costos
   const calCostos = () => {
     const cantidadInput = document.getElementById("cantidad").value;
     const tiempoInput = document.getElementById("tiempo").value;
@@ -30,6 +36,7 @@ export const CostosComponent = () => {
     setgOperaciones(true);
   };
 
+  // Si se presiona el botón de regresar o se muestra la página de inicio, volver a la página de inicio
   if (back || showHome) {
     window.toHome = false;
     return <Home />;

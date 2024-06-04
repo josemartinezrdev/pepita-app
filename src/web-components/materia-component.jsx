@@ -3,21 +3,25 @@ import { FormMateria } from "./form-materia-prima";
 import { Home } from "./home-component";
 
 export const MateriaComponent = () => {
-  const [first, setFirst] = useState(true);
-  const [second, setSecond] = useState(false);
-  const [back, setBack] = useState(false);
+  // Estados para controlar la visualización de los elementos
+  const [first, setFirst] = useState(true); // Mostrar selección de tipo de materia prima
+  const [second, setSecond] = useState(false); // Mostrar formulario para agregar información
+  const [back, setBack] = useState(false); // Controlar el regreso a la página principal
 
+  // Función para cambiar a la segunda pantalla y almacenar la opción seleccionada
   const btnClick = (name, id) => {
     setFirst(false);
     setSecond(true);
-    window.globalOption = name;
-    window.id = id;
+    window.globalOption = name; // Almacenar la opción seleccionada
+    window.id = id; // Almacenar el ID de la opción seleccionada
   };
 
+  // Función para volver a la página principal
   const btnBack = () => {
     setBack(true);
   };
 
+  // Si se presiona el botón de regreso, volver a la página principal
   if (back) {
     return <Home />;
   }
@@ -25,6 +29,7 @@ export const MateriaComponent = () => {
   return (
     <>
       {first ? (
+        // Mostrar la primera pantalla para seleccionar el tipo de materia prima
         <div className="container-home">
           <button className="button" onClick={btnBack}>
             ← Volver
@@ -32,6 +37,7 @@ export const MateriaComponent = () => {
           <img src="public/imgs/flores.png" alt="" className="lila" />
           <h1>Seleccione Tipo de Materia Prima</h1>
           <div className="option-home">
+            {/* Opciones para seleccionar el tipo de materia prima */}
             <div
               className="options-mPrima options"
               tabIndex="0"
@@ -67,7 +73,7 @@ export const MateriaComponent = () => {
           </div>
         </div>
       ) : null}
-      {second ? <FormMateria /> : null}
+      {second ? <FormMateria /> : null} {/* Mostrar el formulario para agregar información de la materia prima */}
     </>
   );
 };

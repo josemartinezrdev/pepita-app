@@ -3,8 +3,9 @@ import { Home } from "./home-component";
 import { putData } from "../api-services/api-service.jsx";
 
 const CostIndirectos = () => {
-  // ---------boton back------------
+  // Estado para controlar el regreso a la página principal
   const [back, setBack] = useState(false);
+  // Estado para almacenar los datos del formulario
   const [formData, setFormData] = useState({
     alquiler: "",
     servicios: "",
@@ -18,6 +19,7 @@ const CostIndirectos = () => {
     Limpieza: "",
   });
 
+  // Función para manejar el regreso a la página principal
   const btnBack = () => {
     setBack(true);
   };
@@ -25,18 +27,24 @@ const CostIndirectos = () => {
     return <Home />;
   }
 
+  // Función para manejar el cambio en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
+  // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // ID fijo para actualizar los datos
       const id = "1";
+      // URL base de la API
       const baseUrl = "https://665637279f970b3b36c4a8f5.mockapi.io";
+      // Endpoint para actualizar los costos indirectos
       const endpoint = "CostosIndirectos";
 
+      // Objeto con los datos actualizados
       const updatedData = {
         AlquilerLocal: Number(formData.alquiler),
         Servicios: Number(formData.servicios),
@@ -61,10 +69,14 @@ const CostIndirectos = () => {
           Number(formData.Limpieza),
       };
 
+      // Llamar a la función putData de la API para actualizar los datos
       await putData(baseUrl, endpoint, updatedData, id);
+      // Mostrar un mensaje de éxito al usuario
       alert("Datos actualizados correctamente");
+      // Volver a la página principal
       setBack(true);
     } catch (error) {
+      // Mostrar un mensaje de error en caso de fallo
       console.error("Error al actualizar los datos:", error);
     }
   };

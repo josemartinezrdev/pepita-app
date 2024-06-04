@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import data from "../data/tipo.json";
 
+// Variables globales
 window.toHome = false;
 window.globalEmpleado = {
   suelHora: 25,
@@ -8,11 +9,15 @@ window.globalEmpleado = {
 };
 
 export function GestorOperaciones({ onShowHome }) {
+  // Estados para almacenar datos de la API y costos indirectos
   const [apiData, setApiData] = useState([]);
   const [indirectCostsData, setIndirectCostsData] = useState([]);
   const [hasPosted, setHasPosted] = useState(false);
+
+  // Variable global para verificar stock
   window.veriStock = true;
 
+  // Funciones para obtener datos de la API
   useEffect(() => {
     fetchData();
     fetchIndirectCostsData();
@@ -44,6 +49,7 @@ export function GestorOperaciones({ onShowHome }) {
     }
   };
 
+  // Función para calcular costos
   const calculateCosts = () => {
     console.log("Calculando costos...");
 
@@ -99,6 +105,7 @@ export function GestorOperaciones({ onShowHome }) {
     });
   };
 
+  // Función para enviar los costos globales a la API
   const postGlobalCostos = async () => {
     try {
       console.log("Datos a subir:", window.globalCostos);
@@ -121,6 +128,7 @@ export function GestorOperaciones({ onShowHome }) {
     }
   };
 
+  // Efecto para calcular costos y enviarlos a la API
   useEffect(() => {
     if (apiData.length > 0 && indirectCostsData.length > 0 && !hasPosted) {
       calculateCosts();
@@ -139,6 +147,7 @@ export function GestorOperaciones({ onShowHome }) {
     }
   }, [apiData, indirectCostsData]);
 
+  // Renderizado de los resultados de los cálculos
   const {
     prenda,
     cantidad,
