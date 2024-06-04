@@ -15,6 +15,12 @@ export const FormMateria = () => {
   const [materia, setMateria] = useState([]); // Estado para almacenar los datos del producto
   const [selectedMateria, setSelectedMateria] = useState(null); // Estado para almacenar el objeto seleccionado
   const [idToFind, setIdToFind] = useState(null); // Estado para almacenar el ID a buscar
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
+  const closePopup = () => {
+    setPopupOpen(false);
+    setBack(true);
+  }
 
   // Traemos las Materias Primas del mockapi para mostrar la existente
   useEffect(() => {
@@ -84,8 +90,7 @@ export const FormMateria = () => {
       };
 
       await putData(baseUrl, endpoint, updatedData, id); // Enviar los datos actualizados a la API
-      alert("Datos actualizados correctamente"); // Muestra un mensaje de éxito
-      setBack(true); // Vuelve a home después de enviar los datos
+      setPopupOpen(true); // Muestra un mensaje de éxito
     } catch (error) {
       console.error('Error al actualizar los datos:', error); // Manejo de errores
     }
@@ -154,9 +159,18 @@ export const FormMateria = () => {
             ) : (
               <p>Loading...</p>
             )}
+            {isPopupOpen &&
+              <div className="container-popup">
+                <div className="popup">
+                  <img src="/public/imgs/good.png" alt="success" />
+                  <h2>Exitoso!</h2>
+                  <p>Datos Actualizados correctamente</p>
+                  <button type="button" onClick={closePopup}>OK</button>
+                </div>
+              </div>
+            }
           </div>
         </div>
-        
       </div>
     </>
   );

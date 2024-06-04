@@ -108,17 +108,17 @@ export const InformeComponent = () => {
           </div>
           {data ? (
             <ul>
-              <li>Prenda: {data.prenda}</li>
-              <li>Cantidad: {data.cantidad}</li>
-              <li>Tiempo: {data.tiempo}</li>
-              <li>Empleados: {data.empleados}</li>
-              <li>Tela Usada: {data.TelaUsada}</li>
-              <li>Botón Usado: {data.BotonUsado}</li>
-              <li>Cierre Usado: {data.CierreUsado}</li>
-              <li>Hilo Usado: {data.HiloUsado}</li>
-              <li>Costo de Mano de Obra: {data.costMano}</li>
-              <li>Costo de Materiales: {data.costMateria}</li>
-              <li>Total del Lote: {data.totalLote}</li>
+              <li><span>Prenda:</span> {data.prenda}</li>
+              <li><span>Cantidad:</span> {data.cantidad}</li>
+              <li><span>Tiempo:</span> {data.tiempo} h</li>
+              <li><span>Empleados:</span> {data.empleados}</li>
+              <li><span>Tela Usada:</span> {data.TelaUsada}</li>
+              <li><span>Botón Usado:</span> {data.BotonUsado}</li>
+              <li><span>Cierre Usado:</span> {data.CierreUsado}</li>
+              <li><span>Hilo Usado:</span> {data.HiloUsado}</li>
+              <li><span>Costo de Mano de Obra:</span> ${data.costMano}</li>
+              <li><span>Costo de Materiales:</span> ${data.costMateria}</li>
+              <li><span>Total del Lote:</span> ${data.totalLote}</li>
             </ul>
           ) : (
             <span>Selecciona un lote para ver los detalles</span>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import data from "../data/tipo.json";
 
 // Variables globales
-window.toHome = false;
 window.globalEmpleado = {
   suelHora: 25,
   benPrest: 5,
@@ -13,6 +12,15 @@ export function GestorOperaciones({ onShowHome }) {
   const [apiData, setApiData] = useState([]);
   const [indirectCostsData, setIndirectCostsData] = useState([]);
   const [hasPosted, setHasPosted] = useState(false);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [imgPop, setImgPop] = useState("");
+  const [titlePop, setTitlePop] = useState("");
+
+  const closePopup = () => {
+    setPopupOpen(false);
+    onShowHome();
+  }
 
   // Variable global para verificar stock
   window.veriStock = true;
@@ -81,12 +89,28 @@ export function GestorOperaciones({ onShowHome }) {
         if (Tela && Hilo && Cierre && Boton) {
           if (Tela.cantidadStock < window.globalCostos.TelaUsada) {
             window.veriStock = false;
+            setPopupMessage("No hay suficiente stock de Tela.");
+            setImgPop("/public/imgs/bad.png");
+            setTitlePop("Hubo un Problema!");
           } else if (Boton.cantidadStock < window.globalCostos.BotonUsado) {
             window.veriStockBoton = false;
+            setPopupMessage("No hay suficiente stock de Botones.");
+            setImgPop("/public/imgs/bad.png");
+            setTitlePop("Hubo un Problema!");
           } else if (Cierre.cantidadStock < window.globalCostos.CierreUsado) {
             window.veriStockCierre = false;
+            setPopupMessage("No hay suficiente stock de Cierres.");
+            setImgPop("/public/imgs/bad.png");
+            setTitlePop("Hubo un Problema!");
           } else if (Hilo.cantidadStock < window.globalCostos.HiloUsado) {
             window.veriStockHilo = false;
+            setPopupMessage("No hay suficiente stock de Hilo.");
+            setImgPop("/public/imgs/bad.png");
+            setTitlePop("Hubo un Problema!");
+          } else {
+            setPopupMessage("Lote creado con éxito");
+            setImgPop("/public/imgs/good.png");
+            setTitlePop("Éxito!");
           }
           apiData[0]["cantidadStock"] -= window.globalCostos.TelaUsada;
           apiData[1]["cantidadStock"] -= window.globalCostos.HiloUsado;
@@ -166,29 +190,29 @@ export function GestorOperaciones({ onShowHome }) {
   useEffect(() => {
     if (apiData.length > 0 && indirectCostsData.length > 0 && !hasPosted) {
       calculateCosts();
-      if (!window.veriStock) {
-        alert("No hay suficiente stock de tela.");
-        window.toHome = true;
-      } else if (!window.veriStockBoton) {
-        alert("No hay suficiente stock de Botones.");
-        window.toHome = true;
-      } else if (!window.veriStockCierre) {
-        alert("No hay suficiente stock de Cierres.");
-        window.toHome = true;
-      } else if (!window.veriStockHilo) {
-        alert("No hay suficiente stock de Hilo.");
-        window.toHome = true;
+      if (!window.veriStock || !window.veriStockBoton || !window.veriStockCierre || !window.veriStockHilo) {
+        setPopupOpen(true);
       } else {
         postGlobalCostos();
         postGlobalStock();
         setHasPosted(true); // Marcar como posteado para evitar múltiples publicaciones
-        alert("Lote creado con éxito");
-        window.toHome = true;
+        setPopupOpen(true);
       }
     }
-
-    if (window.toHome) {
-      onShowHome();
-    }
   }, [apiData, indirectCostsData]);
+
+  return (
+    <>
+      {isPopupOpen &&
+        <div className="container-popup">
+          <div className="popup">
+            <img src={imgPop} alt="success" />
+            <h2>{titlePop}</h2>
+            <p>{popupMessage}</p>
+            <button type="button" onClick={closePopup}>OK</button>
+          </div>
+        </div>
+      }
+    </>
+  );
 }
