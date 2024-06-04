@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Home } from "./home-component";
 import { putData } from "../api-services/api-service.jsx";
 
 const CostIndirectos = () => {
-  // Estado para controlar el regreso a la página principal
   const [back, setBack] = useState(false);
-  // Estado para almacenar los datos del formulario
+  const [indirectos, setIndirectos] = useState([]);
   const [formData, setFormData] = useState({
     alquiler: "",
     servicios: "",
@@ -19,7 +18,22 @@ const CostIndirectos = () => {
     Limpieza: "",
   });
 
-  // Función para manejar el regreso a la página principal
+  useEffect(() => {
+    fetchIndirectos();
+  }, []);
+
+  const fetchIndirectos = async () => {
+    try {
+      const response = await fetch(
+        "https://665637279f970b3b36c4a8f5.mockapi.io/CostosIndirectos"
+      );
+      const dataFromApi = await response.json();
+      setIndirectos(dataFromApi);
+    } catch (error) {
+      console.error("Error al obtener datos de Materia Prima:", error);
+    }
+  };
+
   const btnBack = () => {
     setBack(true);
   };
@@ -27,24 +41,18 @@ const CostIndirectos = () => {
     return <Home />;
   }
 
-  // Función para manejar el cambio en los campos del formulario
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // ID fijo para actualizar los datos
       const id = "1";
-      // URL base de la API
       const baseUrl = "https://665637279f970b3b36c4a8f5.mockapi.io";
-      // Endpoint para actualizar los costos indirectos
       const endpoint = "CostosIndirectos";
 
-      // Objeto con los datos actualizados
       const updatedData = {
         AlquilerLocal: Number(formData.alquiler),
         Servicios: Number(formData.servicios),
@@ -69,17 +77,17 @@ const CostIndirectos = () => {
           Number(formData.Limpieza),
       };
 
-      // Llamar a la función putData de la API para actualizar los datos
       await putData(baseUrl, endpoint, updatedData, id);
-      // Mostrar un mensaje de éxito al usuario
       alert("Datos actualizados correctamente");
-      // Volver a la página principal
       setBack(true);
     } catch (error) {
-      // Mostrar un mensaje de error en caso de fallo
       console.error("Error al actualizar los datos:", error);
     }
   };
+
+  if (!indirectos.length) {
+    return <div>Cargando datos...</div>;
+  }
 
   return (
     <>
@@ -89,131 +97,172 @@ const CostIndirectos = () => {
         </button>
         <img src="public/imgs/flores.png" alt="" className="lila" />
         <h1>Ingresar Costos Indirectos</h1>
-        <form className="formMP" onSubmit={handleSubmit}>
-          <div className="optionsForm">
-            <span>Alquiler Local</span>
-            <input
-              type="number"
-              id="alquiler"
-              name="alquiler"
-              placeholder="$0.00"
-              value={formData.alquiler}
-              onChange={handleChange}
-              required
-            />
+        <div className="cont-costIndirectos">
+          <div className="indirectos">
+            <ul>
+              <li>
+                <span>AlquilerLocal: </span>
+                {indirectos[0]?.AlquilerLocal}
+              </li>
+              <li>
+                <span>Servicios:</span> {indirectos[0]?.Servicios}
+              </li>
+              <li>
+                <span>MantenimientoMaq:</span> {indirectos[0]?.MantenimientoMaq}
+              </li>
+              <li>
+                <span>EPP:</span> {indirectos[0]?.EPP}
+              </li>
+              <li>
+                <span>ForCapEmp:</span> {indirectos[0]?.ForCapEmp}
+              </li>
+              <li>
+                <span>Seguros:</span> {indirectos[0]?.Seguros}
+              </li>
+              <li>
+                <span>GastosOficina:</span> {indirectos[0]?.GastosOficina}
+              </li>
+              <li>
+                <span>TransLog:</span> {indirectos[0]?.TransLog}
+              </li>
+              <li>
+                <span>LicPermisos:</span> {indirectos[0]?.LicPermisos}
+              </li>
+              <li>
+                <span>Limpieza:</span> {indirectos[0]?.Limpieza}
+              </li>
+              <li>
+                <span>Total:</span> {indirectos[0]?.Total}
+              </li>
+            </ul>
           </div>
-          <div className="optionsForm">
-            <span>Servicios</span>
-            <input
-              type="number"
-              id="uservicios"
-              name="servicios"
-              placeholder="$0.00"
-              value={formData.servicios}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="optionsForm">
-            <span>Mantenimiento</span>
-            <input
-              type="number"
-              id="mant"
-              name="mant"
-              placeholder="$0.00"
-              value={formData.mant}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="optionsForm">
-            <span>EPP</span>
-            <input
-              type="number"
-              id="epp"
-              name="epp"
-              placeholder="$0.00"
-              value={formData.epp}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="optionsForm">
-            <span>ForCapEmp</span>
-            <input
-              type="number"
-              id="ForCapEmp"
-              name="ForCapEmp"
-              placeholder="$0.00"
-              value={formData.ForCapEmp}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="optionsForm">
-            <span>Seguros</span>
-            <input
-              type="number"
-              id="Seguros"
-              name="Seguros"
-              placeholder="$0.00"
-              value={formData.Seguros}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="optionsForm">
-            <span>GastosOficina</span>
-            <input
-              type="number"
-              id="GastosOficina"
-              name="GastosOficina"
-              placeholder="$0.00"
-              value={formData.GastosOficina}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="optionsForm">
-            <span>TransLog</span>
-            <input
-              type="number"
-              id="TransLog"
-              name="TransLog"
-              placeholder="$0.00"
-              value={formData.TransLog}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="optionsForm">
-            <span>LicPermisos</span>
-            <input
-              type="number"
-              id="LicPermisos"
-              name="LicPermisos"
-              placeholder="$0.00"
-              value={formData.LicPermisos}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="optionsForm">
-            <span>Limpieza</span>
-            <input
-              type="number"
-              id="Limpieza"
-              name="Limpieza"
-              placeholder="$0.00"
-              value={formData.Limpieza}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <button className="add" type="submit">
-            Guardar
-          </button>
-        </form>
+
+          <form className="formMP" onSubmit={handleSubmit}>
+            <div className="optionsForm">
+              <span>Alquiler Local</span>
+              <input
+                type="number"
+                id="alquiler"
+                name="alquiler"
+                placeholder="$0.00"
+                value={formData.alquiler}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="optionsForm">
+              <span>Servicios</span>
+              <input
+                type="number"
+                id="uservicios"
+                name="servicios"
+                placeholder="$0.00"
+                value={formData.servicios}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="optionsForm">
+              <span>Mantenimiento</span>
+              <input
+                type="number"
+                id="mant"
+                name="mant"
+                placeholder="$0.00"
+                value={formData.mant}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="optionsForm">
+              <span>EPP</span>
+              <input
+                type="number"
+                id="epp"
+                name="epp"
+                placeholder="$0.00"
+                value={formData.epp}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="optionsForm">
+              <span>ForCapEmp</span>
+              <input
+                type="number"
+                id="ForCapEmp"
+                name="ForCapEmp"
+                placeholder="$0.00"
+                value={formData.ForCapEmp}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="optionsForm">
+              <span>Seguros</span>
+              <input
+                type="number"
+                id="Seguros"
+                name="Seguros"
+                placeholder="$0.00"
+                value={formData.Seguros}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="optionsForm">
+              <span>GastosOficina</span>
+              <input
+                type="number"
+                id="GastosOficina"
+                name="GastosOficina"
+                placeholder="$0.00"
+                value={formData.GastosOficina}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="optionsForm">
+              <span>TransLog</span>
+              <input
+                type="number"
+                id="TransLog"
+                name="TransLog"
+                placeholder="$0.00"
+                value={formData.TransLog}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="optionsForm">
+              <span>LicPermisos</span>
+              <input
+                type="number"
+                id="LicPermisos"
+                name="LicPermisos"
+                placeholder="$0.00"
+                value={formData.LicPermisos}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="optionsForm">
+              <span>Limpieza</span>
+              <input
+                type="number"
+                id="Limpieza"
+                name="Limpieza"
+                placeholder="$0.00"
+                value={formData.Limpieza}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <button className="add" type="submit">
+              Guardar
+            </button>
+          </form>
+        </div>
       </div>
     </>
   );

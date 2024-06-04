@@ -6,9 +6,8 @@
 }
 
 body {
-  background: #f4e0ff;
+  background: #653183;
   background-repeat: no-repeat;
-  overflow-x: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,11 +54,12 @@ body {
 }
 
 .button {
-  background-color: #f8a3c9;
-  color: #b072d4;
+  background-image: linear-gradient(to left, #b072d4, #653183);
+  color: #fdfcff;
   padding: 10px 20px;
   border: none;
   border-radius: 15px;
+  border: solid 1px;
 }
 
 .button:hover {
@@ -86,7 +86,7 @@ h3 {
 }
 
 /* -------------------- FORMULARIOS------------------------------------ */
-.cont-formMockMateriaP{
+.cont-formMockMateriaP, .cont-costIndirectos{
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -115,7 +115,7 @@ h3 {
   gap: 5px;
   padding: 5%;
 }
-.info-materiaP {
+.info-materiaP, .indirectos {
   border: solid 1px black;
   display: grid;
   grid-template-columns: 1fr;
@@ -124,6 +124,9 @@ h3 {
   border-radius: 20px;
   padding: 2%;
 }
+
+
+
 .optionsForm {
   display: flex;
   flex-direction: column;
@@ -221,9 +224,9 @@ select {
   
   
   .info-materiaP{
-    padding: 7%;
+    height: 100%;
   }
-  .cont-formMockMateriaP{
+  .cont-formMockMateriaP, .cont-costIndirectos{
     flex-direction: row;
     max-height: 80vh;
     gap: 7%;
