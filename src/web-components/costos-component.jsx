@@ -5,6 +5,11 @@ import { Home } from "./home-component";
 export const CostosComponent = () => {
   // Estado para controlar la visualización de la página de inicio
   const [showHome, setShowHome] = useState(false);
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
+  const openPopup = () => {
+    setPopupOpen(true);
+  }
 
   // Función para mostrar la página de inicio
   const handleShowHome = () => {
@@ -31,8 +36,21 @@ export const CostosComponent = () => {
   const calCostos = () => {
     const cantidadInput = document.getElementById("cantidad").value;
     const tiempoInput = document.getElementById("tiempo").value;
-    updateGlobalCostos("cantidad", parseInt(cantidadInput, 10));
-    updateGlobalCostos("tiempo", parseInt(tiempoInput, 10));
+
+    // Verificar si los campos están vacíos
+    if (cantidadInput.trim() === "" || tiempoInput.trim() === "") {
+      return;
+    }
+
+    // Convertir los valores a números enteros
+    const cantidad = parseInt(cantidadInput, 10);
+    const tiempo = parseInt(tiempoInput, 10);
+
+    // Actualizar los datos globales de costos
+    updateGlobalCostos("cantidad", cantidad);
+    updateGlobalCostos("tiempo", tiempo);
+
+    // Marcar que se han realizado las operaciones de cálculo
     setgOperaciones(true);
   };
 
@@ -54,7 +72,7 @@ export const CostosComponent = () => {
           <div
             className="options-mPrima options"
             tabIndex="0"
-            onClick={() => (window.globalCostos.prenda = "Pantalon")}
+            onClick={() => { (window.globalCostos.prenda = "Pantalon"); openPopup() }}
           >
             <img src="public/imgs/pantalones.png" alt="" />
             <p>Pantalon</p>
@@ -62,7 +80,7 @@ export const CostosComponent = () => {
           <div
             className="options-mObra options"
             tabIndex="0"
-            onClick={() => (window.globalCostos.prenda = "Camisa")}
+            onClick={() => { (window.globalCostos.prenda = "Camisa"); openPopup() }}
           >
             <img
               src="public/imgs/camisa.png
@@ -74,7 +92,7 @@ export const CostosComponent = () => {
           <div
             className="options-cIndirectos options"
             tabIndex="0"
-            onClick={() => (window.globalCostos.prenda = "Falda")}
+            onClick={() => { (window.globalCostos.prenda = "Falda"); openPopup() }}
           >
             <img src="public/imgs/falda.png" alt="" />
             <p>Falda</p>
@@ -82,47 +100,50 @@ export const CostosComponent = () => {
           <div
             className="options-cInformes options"
             tabIndex="0"
-            onClick={() => (window.globalCostos.prenda = "Vestido")}
+            onClick={() => { (window.globalCostos.prenda = "Vestido"); openPopup() }}
           >
             <img src="public/imgs/vestido.png" alt="" />
             <p>Vestido</p>
           </div>
         </div>
-
-        <div className="container-formCost">
-          <div className="formC">
-            <div className="optionsFormC">
-              <span className="spanCost">Cantidad</span>
-              <input
-                className="inputCost"
-                type="number"
-                id="cantidad"
-                name="cantidad"
-                placeholder="0"
-                required
-              />
-            </div>
-            <div className="optionsFormC">
-              <span className="spanCost">Tiempo</span>
-              <input
-                className="inputCost"
-                type="number"
-                id="tiempo"
-                name="tiempo"
-                placeholder="horas"
-                required
-              />
-            </div>
-            <button className="calCost" onClick={calCostos}>
-              Enviar
-            </button>
-            <div>
-              {gOperaciones && (
-                <GestorOperaciones onShowHome={handleShowHome} />
-              )}
+        {isPopupOpen &&
+          <div className="container-popup">
+            <div className="container-formCost">
+              <div className="formC">
+                <div className="optionsFormC">
+                  <span className="spanCost">Cantidad</span>
+                  <input
+                    className="inputCost"
+                    type="number"
+                    id="cantidad"
+                    name="cantidad"
+                    placeholder="0"
+                    required
+                  />
+                </div>
+                <div className="optionsFormC">
+                  <span className="spanCost">Tiempo</span>
+                  <input
+                    className="inputCost"
+                    type="number"
+                    id="tiempo"
+                    name="tiempo"
+                    placeholder="horas"
+                    required
+                  />
+                </div>
+                <button className="calCost" onClick={calCostos}>
+                  Enviar
+                </button>
+                <div>
+                  {gOperaciones && (
+                    <GestorOperaciones onShowHome={handleShowHome} />
+                  )}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        }
       </div>
     </>
   );

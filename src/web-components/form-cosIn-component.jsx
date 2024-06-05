@@ -17,6 +17,12 @@ const CostIndirectos = () => {
     LicPermisos: "",
     Limpieza: "",
   });
+  const [isPopupOpen, setPopupOpen] = useState(false);
+
+  const closePopup = () => {
+    setPopupOpen(false);
+    setBack(true);
+  }
 
   useEffect(() => {
     fetchIndirectos();
@@ -78,8 +84,7 @@ const CostIndirectos = () => {
       };
 
       await putData(baseUrl, endpoint, updatedData, id);
-      alert("Datos actualizados correctamente");
-      setBack(true);
+      setPopupOpen(true);
     } catch (error) {
       console.error("Error al actualizar los datos:", error);
     }
@@ -264,6 +269,16 @@ const CostIndirectos = () => {
           </form>
         </div>
       </div>
+      {isPopupOpen &&
+        <div className="container-popup">
+          <div className="popup">
+            <img src="/public/imgs/good.png" alt="success" />
+            <h2>Exitoso!</h2>
+            <p>Datos Actualizados correctamente</p>
+            <button type="button" onClick={closePopup}>OK</button>
+          </div>
+        </div>
+      }
     </>
   );
 };
