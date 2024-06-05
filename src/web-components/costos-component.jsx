@@ -9,7 +9,7 @@ export const CostosComponent = () => {
 
   const openPopup = () => {
     setPopupOpen(true);
-  }
+  };
 
   // Función para mostrar la página de inicio
   const handleShowHome = () => {
@@ -63,7 +63,7 @@ export const CostosComponent = () => {
   return (
     <>
       <div className="container-home">
-        <img src="public/imgs/flores.png" alt="" className="lila" />
+        <img src="../../public/flores.png" alt="" className="lila" />
         <button className="button" onClick={btnBack}>
           ← Volver
         </button>
@@ -72,18 +72,24 @@ export const CostosComponent = () => {
           <div
             className="options-mPrima options"
             tabIndex="0"
-            onClick={() => { (window.globalCostos.prenda = "Pantalon"); openPopup() }}
+            onClick={() => {
+              window.globalCostos.prenda = "Pantalon";
+              openPopup();
+            }}
           >
-            <img src="public/imgs/pantalones.png" alt="" />
+            <img src="../../public/pantalones.png" alt="" />
             <p>Pantalon</p>
           </div>
           <div
             className="options-mObra options"
             tabIndex="0"
-            onClick={() => { (window.globalCostos.prenda = "Camisa"); openPopup() }}
+            onClick={() => {
+              window.globalCostos.prenda = "Camisa";
+              openPopup();
+            }}
           >
             <img
-              src="public/imgs/camisa.png
+              src="../../public/camisa.png
 "
               alt=""
             />
@@ -92,21 +98,27 @@ export const CostosComponent = () => {
           <div
             className="options-cIndirectos options"
             tabIndex="0"
-            onClick={() => { (window.globalCostos.prenda = "Falda"); openPopup() }}
+            onClick={() => {
+              window.globalCostos.prenda = "Falda";
+              openPopup();
+            }}
           >
-            <img src="public/imgs/falda.png" alt="" />
+            <img src="../../public/falda.png" alt="" />
             <p>Falda</p>
           </div>
           <div
             className="options-cInformes options"
             tabIndex="0"
-            onClick={() => { (window.globalCostos.prenda = "Vestido"); openPopup() }}
+            onClick={() => {
+              window.globalCostos.prenda = "Vestido";
+              openPopup();
+            }}
           >
-            <img src="public/imgs/vestido.png" alt="" />
+            <img src="../../public/vestido.png" alt="" />
             <p>Vestido</p>
           </div>
         </div>
-        {isPopupOpen &&
+        {isPopupOpen && (
           <div className="container-popup">
             <div className="container-formCost">
               <div className="formC">
@@ -143,7 +155,7 @@ export const CostosComponent = () => {
               </div>
             </div>
           </div>
-        }
+        )}
       </div>
     </>
   );
